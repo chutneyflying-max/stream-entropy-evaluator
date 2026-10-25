@@ -1,0 +1,24 @@
+{
+  "name": "stream-entropy-evaluator",
+  "version": "1.0.0",
+  "description": "Distributed stream entropy benchmarking, variance sampling matrix, and synthetic node telemetry runtime",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "benchmark": "node index.js --dry-run",
+    "test": "node index.js --test"
+  },
+  "keywords": [
+    "distributed-systems",
+    "data-streams",
+    "variance-sampling",
+    "matrix-evaluation",
+    "telemetry-benchmarking"
+  ],
+  "author": "StreamEntropy Project",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "playwright": "^1.43.0"
+  }
+}

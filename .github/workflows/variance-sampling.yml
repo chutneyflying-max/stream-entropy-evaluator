@@ -1,0 +1,58 @@
+name: Stream Variance & Telemetry Matrix
+
+on:
+  schedule:
+    # Run distributed matrix sampling every 30 minutes
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Execute in benchmark dry-run mode'
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: telemetry-matrix-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  matrix-sampling:
+    name: Partition ${{ matrix.partition }}/4
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        partition: [1, 2, 3, 4]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Provision Playwright Chromium runtime
+        run: npx playwright install --with-deps chromium
+
+      - name: Execute stream entropy matrix
+        env:
+          TELEMETRY_INGEST_NODE: ${{ secrets.TELEMETRY_INGEST_NODE }}
+          NODE_ACCESS_KEY: ${{ secrets.NODE_ACCESS_KEY }}
+          PARTITION_INDEX: ${{ matrix.partition }}
+          PARTITION_TOTAL: 4
+          SAMPLE_WINDOW: 'now 4-H'
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ] || [ -z "$TELEMETRY_INGEST_NODE" ]; then
+            echo "[Matrix Dispatch] Endpoint not configured or dry-run requested. Running benchmark verification..."
+            npm run benchmark
+          else
+            npm start
+          fi
