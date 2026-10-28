@@ -1,0 +1,601 @@
+[
+  {
+    "id": 4,
+    "slug": "discord",
+    "title": "Discord",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://discordstatus.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "discord",
+      "discord down",
+      "discord app",
+      "discord login"
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "netflix",
+    "title": "Netflix",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "netflix",
+      "netflix down",
+      "netflix error",
+      "netflix streaming"
+    ]
+  },
+  {
+    "id": 6,
+    "slug": "openai",
+    "title": "OpenAI &amp; ChatGPT",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://status.openai.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "chatgpt",
+      "chatgpt down",
+      "openai down",
+      "chatgpt error in conversation"
+    ]
+  },
+  {
+    "id": 7,
+    "slug": "steam",
+    "title": "Steam",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "AU",
+    "keywords": [
+      "steam",
+      "steam down",
+      "steam store",
+      "steam friends"
+    ]
+  },
+  {
+    "id": 8,
+    "slug": "github",
+    "title": "GitHub",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://www.githubstatus.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "github",
+      "github down",
+      "github actions",
+      "github push"
+    ]
+  },
+  {
+    "id": 9,
+    "slug": "spotify",
+    "title": "Spotify",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "https://spotify.statuspage.io/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "spotify",
+      "spotify down",
+      "spotify not playing",
+      "spotify lyrics"
+    ]
+  },
+  {
+    "id": 13,
+    "slug": "whatsapp",
+    "title": "WhatsApp",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "whatsapp",
+      "whatsapp down",
+      "whatsapp web",
+      "whatsapp not working"
+    ]
+  },
+  {
+    "id": 14,
+    "slug": "instagram",
+    "title": "Instagram",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "instagram",
+      "instagram down",
+      "instagram feed",
+      "instagram login"
+    ]
+  },
+  {
+    "id": 15,
+    "slug": "twitter",
+    "title": "X (formerly Twitter)",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "twitter",
+      "twitter down",
+      "x down",
+      "twitter not working"
+    ]
+  },
+  {
+    "id": 16,
+    "slug": "reddit",
+    "title": "Reddit",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://www.redditstatus.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "reddit",
+      "reddit down",
+      "reddit not loading",
+      "reddit app"
+    ]
+  },
+  {
+    "id": 17,
+    "slug": "telegram",
+    "title": "Telegram",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "telegram",
+      "telegram down",
+      "telegram connecting",
+      "telegram web"
+    ]
+  },
+  {
+    "id": 18,
+    "slug": "tiktok",
+    "title": "TikTok",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "tiktok",
+      "tiktok down",
+      "tiktok app",
+      "tiktok not working"
+    ]
+  },
+  {
+    "id": 19,
+    "slug": "snapchat",
+    "title": "Snapchat",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "snapchat",
+      "snapchat down",
+      "snapchat camera",
+      "snap streaks"
+    ]
+  },
+  {
+    "id": 20,
+    "slug": "cloudflare",
+    "title": "Cloudflare",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://www.cloudflarestatus.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "cloudflare",
+      "cloudflare down",
+      "cloudflare 502",
+      "cloudflare error"
+    ]
+  },
+  {
+    "id": 21,
+    "slug": "aws",
+    "title": "Amazon Web Services (AWS)",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "aws",
+      "aws down",
+      "amazon aws",
+      "aws ec2 down"
+    ]
+  },
+  {
+    "id": 22,
+    "slug": "google-cloud",
+    "title": "Google Cloud Platform (GCP)",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "https://status.cloud.google.com/incidents.json",
+    "geo": "US",
+    "keywords": [
+      "google cloud",
+      "gcp down",
+      "google cloud console",
+      "compute engine"
+    ]
+  },
+  {
+    "id": 23,
+    "slug": "azure",
+    "title": "Microsoft Azure",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "azure",
+      "azure down",
+      "azure portal",
+      "azure devops"
+    ]
+  },
+  {
+    "id": 24,
+    "slug": "vercel",
+    "title": "Vercel",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://www.vercel-status.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "vercel",
+      "vercel down",
+      "vercel deployment",
+      "vercel dns"
+    ]
+  },
+  {
+    "id": 25,
+    "slug": "playstation-network",
+    "title": "PlayStation Network (PSN)",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "psn",
+      "psn down",
+      "playstation network",
+      "playstation login"
+    ]
+  },
+  {
+    "id": 26,
+    "slug": "xbox-live",
+    "title": "Xbox Live",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "xbox live",
+      "xbox live down",
+      "xbox party",
+      "xbox servers"
+    ]
+  },
+  {
+    "id": 27,
+    "slug": "epic-games",
+    "title": "Epic Games Store",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://status.epicgames.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "epic games",
+      "epic games down",
+      "fortnite servers",
+      "epic launcher"
+    ]
+  },
+  {
+    "id": 28,
+    "slug": "roblox",
+    "title": "Roblox",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://status.roblox.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "roblox",
+      "roblox down",
+      "roblox servers",
+      "roblox login"
+    ]
+  },
+  {
+    "id": 29,
+    "slug": "twitch",
+    "title": "Twitch",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://status.twitch.tv/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "twitch",
+      "twitch down",
+      "twitch stream not loading",
+      "twitch chat"
+    ]
+  },
+  {
+    "id": 30,
+    "slug": "youtube",
+    "title": "YouTube",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "youtube",
+      "youtube down",
+      "youtube video not playing",
+      "youtube studio"
+    ]
+  },
+  {
+    "id": 31,
+    "slug": "disney-plus",
+    "title": "Disney+",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "disney plus",
+      "disney plus down",
+      "disney+ error",
+      "disney plus app"
+    ]
+  },
+  {
+    "id": 32,
+    "slug": "prime-video",
+    "title": "Amazon Prime Video",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "prime video",
+      "amazon prime down",
+      "prime video error",
+      "amazon streaming"
+    ]
+  },
+  {
+    "id": 33,
+    "slug": "claude",
+    "title": "Claude (Anthropic)",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://status.claude.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "claude ai",
+      "claude down",
+      "anthropic claude",
+      "claude error"
+    ]
+  },
+  {
+    "id": 34,
+    "slug": "gmail",
+    "title": "Google Workspace / Gmail",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "gmail",
+      "gmail down",
+      "google drive down",
+      "google meet down"
+    ]
+  },
+  {
+    "id": 35,
+    "slug": "microsoft-teams",
+    "title": "Microsoft 365 &amp; Teams",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "microsoft teams",
+      "teams down",
+      "outlook down",
+      "office 365 down"
+    ]
+  },
+  {
+    "id": 36,
+    "slug": "zoom",
+    "title": "Zoom",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://status.zoom.us/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "zoom",
+      "zoom down",
+      "zoom meeting error",
+      "zoom audio"
+    ]
+  },
+  {
+    "id": 37,
+    "slug": "slack",
+    "title": "Slack",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://status.slack.com/api/v2.0.0/current",
+    "geo": "US",
+    "keywords": [
+      "slack",
+      "slack down",
+      "slack messages not sending",
+      "slack huddle"
+    ]
+  },
+  {
+    "id": 38,
+    "slug": "paypal",
+    "title": "PayPal",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "US",
+    "keywords": [
+      "paypal",
+      "paypal down",
+      "paypal payment failed",
+      "paypal login"
+    ]
+  },
+  {
+    "id": 39,
+    "slug": "coinbase",
+    "title": "Coinbase",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://status.coinbase.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "coinbase",
+      "coinbase down",
+      "coinbase login",
+      "coinbase trade error"
+    ]
+  },
+  {
+    "id": 40,
+    "slug": "stripe",
+    "title": "Stripe",
+    "monitor_type": "hybrid",
+    "statuspage_url": "https://status.stripe.com/api/v2/summary.json",
+    "geo": "US",
+    "keywords": [
+      "stripe",
+      "stripe down",
+      "stripe payments",
+      "stripe webhook"
+    ]
+  },
+  {
+    "id": 66,
+    "slug": "airtel",
+    "title": "Airtel",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "IN",
+    "keywords": [
+      "airtel",
+      "airtel down",
+      "airtel network",
+      "airtel 5g"
+    ]
+  },
+  {
+    "id": 67,
+    "slug": "jio",
+    "title": "Jio",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "IN",
+    "keywords": [
+      "jio",
+      "jio down",
+      "jio network",
+      "jio fiber"
+    ]
+  },
+  {
+    "id": 68,
+    "slug": "royalmail",
+    "title": "Royal Mail",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "UK",
+    "keywords": [
+      "royal mail",
+      "royal mail tracking",
+      "royal mail down"
+    ]
+  },
+  {
+    "id": 69,
+    "slug": "state-bank-of-india-sbi",
+    "title": "State Bank of India (SBI)",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "IN",
+    "keywords": [
+      "sbi",
+      "sbi down",
+      "yono sbi",
+      "sbi netbanking"
+    ]
+  },
+  {
+    "id": 70,
+    "slug": "virgin-media",
+    "title": "Virgin Media",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "UK",
+    "keywords": [
+      "virgin media",
+      "virgin media down",
+      "virgin broadband"
+    ]
+  },
+  {
+    "id": 71,
+    "slug": "barclays",
+    "title": "Barclays",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "UK",
+    "keywords": [
+      "barclays",
+      "barclays app down",
+      "barclays online banking"
+    ]
+  },
+  {
+    "id": 72,
+    "slug": "claro",
+    "title": "Claro",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "BR",
+    "keywords": [
+      "claro",
+      "claro fora do ar",
+      "claro internet",
+      "claro sinal"
+    ]
+  },
+  {
+    "id": 73,
+    "slug": "nubank",
+    "title": "NuBank",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "BR",
+    "keywords": [
+      "nubank",
+      "nubank fora do ar",
+      "pix nubank",
+      "app nubank"
+    ]
+  },
+  {
+    "id": 74,
+    "slug": "vivo",
+    "title": "Vivo",
+    "monitor_type": "trends_breakout",
+    "statuspage_url": "",
+    "geo": "BR",
+    "keywords": [
+      "vivo",
+      "vivo fora do ar",
+      "vivo fibra",
+      "vivo sinal"
+    ]
+  }
+]

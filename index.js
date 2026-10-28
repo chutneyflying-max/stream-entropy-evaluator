@@ -9,6 +9,8 @@
  */
 
 import { chromium } from 'playwright';
+import fs from 'node:fs';
+import path from 'node:path';
 
 // Base64 decoded high-frequency entropy deviation classifier
 const DEFAULT_FLUX_SPEC = Buffer.from(
@@ -32,7 +34,41 @@ const CONFIG = {
  * Fetch partitioned target node descriptors from telemetry matrix
  */
 async function fetchPartitionNodes() {
-  if (!CONFIG.endpoint || !CONFIG.secret) {
+  let allTargets = [];
+
+  // Try querying remote upstream cluster if configured
+  if (CONFIG.endpoint && CONFIG.secret) {
+    const url = `${CONFIG.endpoint}targets?secret=${encodeURIComponent(CONFIG.secret)}&partition=${CONFIG.partition}&total_partitions=${CONFIG.totalPartitions}`;
+    console.log(`[Matrix Runner] Querying upstream cluster (${CONFIG.partition}/${CONFIG.totalPartitions}): ${url}`);
+
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data.targets) && data.targets.length > 0) {
+          console.log(`[Matrix Runner] Successfully received ${data.targets.length} targets from upstream cluster.`);
+          return data.targets;
+        }
+      } else {
+        console.warn(`[Matrix Runner] Upstream cluster returned HTTP ${res.status}. Falling back to bundled catalog.`);
+      }
+    } catch (err) {
+      console.warn(`[Matrix Runner] Upstream cluster offline or unreachable (${err.message}). Using bundled catalog.`);
+    }
+  }
+
+  // Fallback: Read bundled targets.json
+  const targetsFile = path.resolve('targets.json');
+  if (fs.existsSync(targetsFile)) {
+    try {
+      allTargets = JSON.parse(fs.readFileSync(targetsFile, 'utf8'));
+      console.log(`[Matrix Runner] Loaded ${allTargets.length} bundled platform targets from targets.json.`);
+    } catch (e) {
+      console.error('[Matrix Runner] Error reading targets.json:', e.message);
+    }
+  }
+
+  if (allTargets.length === 0) {
     if (CONFIG.isDryRun) {
       console.log('[Matrix Runner] Dry run mode active: generating synthetic test nodes.');
       return [
@@ -40,19 +76,17 @@ async function fetchPartitionNodes() {
         { title: 'Synthetic Node Beta', slug: 'synthetic-node-b', monitor_type: 'hybrid', keywords: ['beta vector'], geo: 'US' }
       ];
     }
-    throw new Error('TELEMETRY_INGEST_NODE and NODE_ACCESS_KEY environment variables are required.');
+    console.log('[Matrix Runner] No targets available. Returning empty partition.');
+    return [];
   }
 
-  const url = `${CONFIG.endpoint}targets?secret=${encodeURIComponent(CONFIG.secret)}&partition=${CONFIG.partition}&total_partitions=${CONFIG.totalPartitions}`;
-  console.log(`[Matrix Runner] Slicing partition (${CONFIG.partition}/${CONFIG.totalPartitions}) from cluster...`);
-
-  const res = await fetch(url, { signal: AbortSignal.timeout(15000) });
-  if (!res.ok) {
-    throw new Error(`Upstream telemetry ingest rejected node slice request: HTTP ${res.status}`);
-  }
-
-  const data = await res.json();
-  return data.targets || [];
+  // Slice targets evenly across the configured partition
+  const total = allTargets.length;
+  const chunkSize = Math.ceil(total / CONFIG.totalPartitions);
+  const offset = (CONFIG.partition - 1) * chunkSize;
+  const slice = allTargets.slice(offset, offset + chunkSize);
+  console.log(`[Matrix Runner] Partition ${CONFIG.partition}/${CONFIG.totalPartitions} allocated ${slice.length} targets.`);
+  return slice;
 }
 
 /**
@@ -177,29 +211,48 @@ async function sampleEntropyFlux(browser, node) {
  * Transmit aggregated telemetry batch to upstream cluster
  */
 async function dispatchVarianceMatrix(metrics) {
-  if (CONFIG.isDryRun) {
-    console.log(`[Ingest Dispatch] Dry run complete: ${metrics.length} metrics validated.`);
+  // Always persist local telemetry artifact in data/ directory
+  try {
+    const dataDir = path.resolve('data');
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    const outFile = path.join(dataDir, `telemetry-partition-${CONFIG.partition}.json`);
+    fs.writeFileSync(outFile, JSON.stringify(metrics, null, 2), 'utf8');
+    console.log(`[Ingest Dispatch] Telemetry snapshot saved to ${outFile}`);
+  } catch (err) {
+    console.warn(`[Ingest Dispatch] Failed to save local telemetry file: ${err.message}`);
+  }
+
+  if (CONFIG.isDryRun || !CONFIG.endpoint || !CONFIG.secret) {
+    console.log(`[Ingest Dispatch] Offline / benchmark mode: ${metrics.length} metrics validated.`);
     return;
   }
 
   const url = `${CONFIG.endpoint}ingest`;
-  console.log(`[Ingest Dispatch] Synchronizing ${metrics.length} entropy records with cluster...`);
+  console.log(`[Ingest Dispatch] Synchronizing ${metrics.length} entropy records with cluster at ${url}...`);
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-DownRadar-Secret': CONFIG.secret
-    },
-    body: JSON.stringify(metrics)
-  });
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-DownRadar-Secret': CONFIG.secret
+      },
+      body: JSON.stringify(metrics),
+      signal: AbortSignal.timeout(10000)
+    });
 
-  if (!res.ok) {
-    throw new Error(`Upstream telemetry node rejected payload: HTTP ${res.status}`);
+    if (!res.ok) {
+      console.warn(`[Ingest Dispatch] Upstream cluster returned HTTP ${res.status}. Data preserved in local artifact.`);
+      return;
+    }
+
+    const json = await res.json();
+    console.log(`[Ingest Dispatch] Synchronization successful: ${json.processed || metrics.length} descriptors updated.`);
+  } catch (err) {
+    console.warn(`[Ingest Dispatch] Upstream cluster push skipped (${err.message}). Data safely preserved in build artifacts.`);
   }
-
-  const json = await res.json();
-  console.log(`[Ingest Dispatch] Synchronization successful: ${json.processed || metrics.length} descriptors updated.`);
 }
 
 /**
@@ -251,7 +304,7 @@ async function main() {
         score: compositeScore,
         source: node.monitor_type || 'hybrid',
         breakout_terms: shifts || null,
-        report_count: compositeScore >= 65 ? 2500 : (compositeScore >= 25 ? 250 : 15)
+        report_count: compositeScore >= 65 ? (800 + Math.round(compositeScore * 12)) : (compositeScore >= 25 ? (120 + Math.round(compositeScore * 2)) : 35)
       });
     }
 
